@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{500b5f71-f2a1-44f9-b289-88b6484cc9e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{dddeca63-5532-4cd5-ba5c-ccdf0c5f47cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Renderables">
+      <UniqueIdentifier>{1d3187ce-ed46-438f-9656-1f8c28ccea71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Renderables\RenderMeshes">
+      <UniqueIdentifier>{2d7cfd58-d724-497d-a269-55ea56c079df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\BuffersAndStates">
+      <UniqueIdentifier>{b251f42a-cf1a-44ca-b551-d17b0db954c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Textures">
+      <UniqueIdentifier>{7006ce3c-76fa-4960-a598-e89c38924743}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\ComputeShaders">
+      <UniqueIdentifier>{1b651768-bbf4-486a-a794-3f741cb3a8e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\PixelShaders">
+      <UniqueIdentifier>{03b3c3c0-4a80-4bb2-8797-122ad2ad01c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\VertexShaders">
+      <UniqueIdentifier>{18b74e56-d2a3-4f6e-9495-48c272e29b60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Lighting">
+      <UniqueIdentifier>{cddfdac3-52b0-4ec0-9c2b-cdee545ca53b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderable.cpp">
+      <Filter>Renderer\Renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderContext.cpp">
+      <Filter>Renderer\Renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderMesh.cpp">
+      <Filter>Renderer\Renderables\RenderMeshes</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantBuffers.cpp">
+      <Filter>Renderer\BuffersAndStates</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderingStates.cpp">
+      <Filter>Renderer\BuffersAndStates</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderMesh3D.cpp">
+      <Filter>Renderer\Renderables\RenderMeshes</Filter>
+    </ClCompile>
+    <ClCompile Include="Shaders.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderMeshOBJ.cpp">
+      <Filter>Renderer\Renderables\RenderMeshes</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderSet.cpp">
+      <Filter>Renderer\Renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DDSTextureLoader.cpp">
+      <Filter>Renderer\Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Renderer\Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderSetTransparent.cpp">
+      <Filter>Renderer\Renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="Lights.cpp">
+      <Filter>Renderer\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderShape.cpp">
+      <Filter>Renderer\Renderables\RenderMeshes</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelManager.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Renderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderable.h">
+      <Filter>Renderer\Renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderContext.h">
+      <Filter>Renderer\Renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderMesh.h">
+      <Filter>Renderer\Renderables\RenderMeshes</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBuffers.h">
+      <Filter>Renderer\BuffersAndStates</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingStates.h">
+      <Filter>Renderer\BuffersAndStates</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexTypes.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderMesh3D.h">
+      <Filter>Renderer\Renderables\RenderMeshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderMeshOBJ.h">
+      <Filter>Renderer\Renderables\RenderMeshes</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSet.h">
+      <Filter>Renderer\Renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderShape.h">
+      <Filter>Renderer\Renderables\RenderMeshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DDSTextureLoader.h">
+      <Filter>Renderer\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Renderer\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSetTransparent.h">
+      <Filter>Renderer\Renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="Lights.h">
+      <Filter>Renderer\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelManager.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="CSTest.hlsl">
+      <Filter>Shaders\ComputeShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PS3DNorm.hlsl">
+      <Filter>Shaders\PixelShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PS3D.hlsl">
+      <Filter>Shaders\PixelShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="VS3D.hlsl">
+      <Filter>Shaders\VertexShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="CSLightCull.hlsl">
+      <Filter>Shaders\ComputeShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="VSPassThrough.hlsl">
+      <Filter>Shaders\VertexShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PSDebugLightMap.hlsl">
+      <Filter>Shaders\PixelShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="VS3DRevNorm.hlsl">
+      <Filter>Shaders\VertexShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PSDepth.hlsl">
+      <Filter>Shaders\PixelShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PS3DSpecLit.hlsl">
+      <Filter>Shaders\PixelShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PSAO.hlsl">
+      <Filter>Shaders\PixelShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PSRefraction.hlsl">
+      <Filter>Shaders\PixelShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PSColorBuffer.hlsl">
+      <Filter>Shaders\PixelShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PSWater.hlsl">
+      <Filter>Shaders\PixelShaders</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ShaderStructs.hlsli">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Lighting.hlsli">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="LightCulling.hlsli">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>
