@@ -1,11 +1,11 @@
 #include "Shaders.h"
 #include "Renderer.h"
-//TODO Add Shader Includes
-//Vertex Shader Includes
+//Permanent TODO Add Shader Includes
+//  Vertex Shader Includes //
 #include "VS3D.csh"
 #include "VSPassThrough.csh"
 #include "VS3DRevNorm.csh"
-//Pixel Shader Includes
+//  Pixel Shader Includes //
 #include "PS3D.csh"
 #include "PS3DNorm.csh"
 #include "PSDebugLightMap.csh"
@@ -14,7 +14,7 @@
 #include "PSRefraction.csh"
 #include "PSColorBuffer.csh"
 #include "PSWater.csh"
-//Compute Shader Includes
+//  Compute Shader Includes //
 #include "CSLightCull.csh"
 #define ShaderHR(x){if(hr!=S_OK){assert(0 && "Load Shader error");}}
 void CShaders::LoadShaders()

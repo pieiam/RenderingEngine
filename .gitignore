@@ -2,3 +2,4 @@
 /Release
 /RenderingEngine/Release
 /RenderingEngine/*.csh
+*.suo

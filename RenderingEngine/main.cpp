@@ -13,17 +13,22 @@
 #define ZFAR 3000.0f
 #define ZNEAR .1f
 
+//  Globals //
 CTime gTime;
-bool Run(void);
-void Input(void);
-void Initialize();
 CRenderShape* lightMap = nullptr;
 CRenderShape* colorBuffer = nullptr;
 CRenderShape* water = nullptr;
 
+//  Forward Declarations //
+bool Run(void);
+void Input(void);
+void Initialize();
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+
+//  Entry Point //
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+	//  Initialize Window // 
 	WNDCLASSEX wndClass;
 	ZeroMemory(&wndClass, sizeof(wndClass));
 	wndClass.cbSize = sizeof(WNDCLASSEX);
@@ -33,10 +38,8 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	wndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wndClass.hbrBackground = (HBRUSH)(COLOR_WINDOWFRAME);
 	RegisterClassEx(&wndClass);
-
 	RECT window_size = { 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT };
 	AdjustWindowRect(&window_size, WS_OVERLAPPEDWINDOW, false);
-
 	HWND window = CreateWindow("RenderTest",
 		"RenderTest",
 		WS_OVERLAPPEDWINDOW & ~(WS_THICKFRAME | WS_MAXIMIZEBOX),
@@ -48,12 +51,13 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		NULL,
 		hInstance,
 		NULL);
-
-
 	ShowWindow(window, SW_SHOW);
+	//  Initialize Rendering Engine Singleton //
 	CRenderer& rend = CRenderer::GetInstance();
 	rend.Initialize(window, WINDOW_WIDTH, WINDOW_HEIGHT, ZNEAR, ZFAR);
+	//  Initialize The Game or Scene //
 	Initialize();
+	//  Handle Windows Messages //
 	MSG msg;
 	ZeroMemory(&msg, sizeof(MSG));
 	while (msg.message != WM_QUIT && Run())
@@ -64,17 +68,19 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			DispatchMessage(&msg);
 		}
 	}
+	//  Take Care of any Global Pointers //
 	delete lightMap;
 	delete colorBuffer;
 	lightMap = nullptr;
 	colorBuffer = nullptr;
+	//  Clear Post Process Set due to manual deletion of pointers //
+	// TODO: Cleanup allocations so this function call isn't needed
 	CRenderer::GetInstance().ClearPostProcessSet();
+	//  Shutdown Renderer Singleton //
 	CRenderer::GetInstance().Shutdown();
-
-
-
 	return 0;
 }
+//  Initializes the Game or Scene //
 void Initialize()
 {
 	CRenderer& rend = CRenderer::GetInstance();
@@ -103,7 +109,6 @@ void Initialize()
 	CRenderMeshOBJ* bottle = new CRenderMeshOBJ("../RenderingEngine/Assets/Bottle.obj",true);
 	rend.AddRenderable(eContext3DTransparent, bottle);
 	bottle->SetPosition(0, 165.0f, 0);
-//	bottle->RotateGlobalZ(90.0f);
 	bottle->UniformScale(100.0f);
 	bottle->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/Bottle.dds"));
 	bottle->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/Bottle.dds"));
@@ -123,14 +128,19 @@ void Initialize()
 	WaterVolume->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/WoodDiffuse.dds"));
 
 }
+//  The "Game Loop" function that will be called every frame //
 bool Run(void)
 {
+	//  Update Time Object //
 	gTime.Tick();
-	CRenderer& instance = CRenderer::GetInstance();
-	instance.Render();
+	//  Render The Scene //
+	CRenderer::GetInstance().Render();
+	//  Get and Process input from the user //
 	Input();
+	//  Return true for normal execution of the program
 	return true;
 }
+//  Gather and Process input from the user //
 void Input(void)
 {
 	if (GetAsyncKeyState(VK_TAB) & 1)
@@ -139,6 +149,7 @@ void Input(void)
 		lightMap->SetActive(!lightMap->GetActive());
 	}
 }
+//  Simple WndProc for handling windows messages //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (GetAsyncKeyState(VK_ESCAPE))
@@ -151,8 +162,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 		PostQuitMessage(0);
 	}
-					 break;
-
+	break;
 	}
 	return DefWindowProc(hWnd, message, wParam, lParam);
 }

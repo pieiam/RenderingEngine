@@ -88,7 +88,7 @@ void CConstantBuffers::BindConstantBuffers()
 	cRenderer.GetContext()->CSSetConstantBuffers(eSceneBuffer, 1, &m_vpConstantBuffers[eSceneBuffer]);
 	cRenderer.GetContext()->CSSetConstantBuffers(ePointLightStreamBuffer, 1, &m_vpConstantBuffers[ePointLightStreamBuffer]);
 
-	//TODO Add new Constant buffers as they are declared
+	//Permanent TODO: Add new Constant buffers as they are declared
 }
 void CConstantBuffers::MapToConstantBuffer(void* pData,unsigned int unSizeOfData, EConstantBuffer eBuffer)
 {
