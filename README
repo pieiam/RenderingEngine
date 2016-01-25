@@ -1,0 +1,27 @@
+README v1.0 Jan 24, 2016
+This is a personal project that I worked on during my time at Full Sail University. 
+This was a project to explore current rendering techniques and learn more about GPU processing.
+I was under a time crunch of just one month working on something I've never done before.  
+
+WSADQE - Movement
+TAB - Toggle Light Heatmap
+R - Randomize Light Positions
+L - Toggle Light Sphere Debug Lines
+
+KNOWN ISSUES:
+  The Refraction is created with hard-coded MACROs rather than sampling from a texture
+  Water and glass don't have any Reflection.
+  Refraction isn't using an alpha mask so you can refract things that are in front of the refracter object.
+  Screen doesn't clear so if you leave the scene bounds, there will be artifacts.
+  File heirarchy doesn't exist anymore.
+  
+DISCLAIMER:
+I didn't have much time to work on this initially.  I am going through and cleaning up some of the code when I have time.
+My intentions were to use this as a learning experience only but many people have asked to see the solution to learn for themselves.
+My code would have been stricter on standards, more well documented and generally cleaner if I was aware that another would use this.
+When learning something new, I commented a good amount such as inside the Compute Shader. Other times were much less documented.
+
+SOURCES:
+http://blog.pjblewis.com/tile-based-forward-rendering/  
+AMD Demos
+others that I don't have bookmarked.
