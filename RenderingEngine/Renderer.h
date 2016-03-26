@@ -119,7 +119,7 @@ public:
 	void AddRenderable(EContextTransparent eContext, CRenderable* pcRenderable);
 	void AddRenderable(EContextPostProcess eContext, CRenderable* pcRenderable);
 	void Render();
-	void LoadObjFile(ID3D11Buffer** _indexBuffer, ID3D11Buffer** _vertexBuffer, std::string _filename, unsigned int *& _numIndicesPerPiece, unsigned int &_numPieces);
+	void LoadObjFile(ID3D11Buffer** _indexBuffer, ID3D11Buffer** _vertexBuffer, std::string _filename, unsigned int *& _numIndicesPerPiece, unsigned int &_numPieces, void** _TMesh);
 
 	void CreateVertexBuffer(void* _VertexArray, unsigned int _sizeOfVertexStruct, unsigned int _numVerts, ID3D11Buffer** _vertexBuffer);
 	void CreateIndexBuffer(unsigned int* _IndexArray, unsigned int _numIndices, ID3D11Buffer** _indexBuffer);

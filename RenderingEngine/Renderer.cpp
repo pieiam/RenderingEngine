@@ -584,8 +584,10 @@ void CRenderer::Render()
 	m_pd3dSwapChain->Present(1, 0);
 	m_pUserDefinedAnnotation->EndEvent();
 }
-void CRenderer::LoadObjFile(ID3D11Buffer** _indexBuffer, ID3D11Buffer** _vertexBuffer, std::string _filename, unsigned int *& _numIndicesPerPiece, unsigned int &_numPieces)
+void CRenderer::LoadObjFile(ID3D11Buffer** _indexBuffer, ID3D11Buffer** _vertexBuffer, std::string _filename, unsigned int *& _numIndicesPerPiece, unsigned int &_numPieces, void** _TMesh)
 {
+	CModelManager::TMesh* pMesh = reinterpret_cast<CModelManager::TMesh*>(*_TMesh);
+	pMesh->szFilepath = _filename;
 	std::vector<XMFLOAT3> positions;
 	std::vector<XMFLOAT3> normals;
 	std::vector<XMFLOAT2> textureCoords;
@@ -747,13 +749,12 @@ void CRenderer::LoadObjFile(ID3D11Buffer** _indexBuffer, ID3D11Buffer** _vertexB
 		}
 	}
 	//Vertexs
-	TVertexDefault* _verts = new TVertexDefault[uniquevertsvec.size()];
+	CModelManager::TTriangle tTri;
 	for (unsigned int i = 0; i < uniquevertsvec.size(); ++i)
 	{
-		_verts[i] = uniquevertsvec[i];
+		pMesh->vtVerts.push_back(uniquevertsvec[i]);
 	}
-	CreateVertexBuffer(_verts, sizeof(TVertexDefault), uniquevertsvec.size(), _vertexBuffer);
-	delete[] _verts;
+	CreateVertexBuffer(&uniquevertsvec[0] , sizeof(TVertexDefault), uniquevertsvec.size(), _vertexBuffer);
 	//Indexes
 	numindexes.push_back(indexcounter);
 	_numPieces = (unsigned int)numindexes.size();
@@ -762,13 +763,16 @@ void CRenderer::LoadObjFile(ID3D11Buffer** _indexBuffer, ID3D11Buffer** _vertexB
 	{
 		_numIndicesPerPiece[i] = numindexes[i];
 	}
-	unsigned int * _indices = new unsigned int[indicesvec.size()];
 	for (unsigned int i = 0; i < indicesvec.size(); ++i)
 	{
-		_indices[i] = indicesvec[i];
+		pMesh->vnIndices.push_back(indicesvec[i]);
+		tTri.nIndices[i % 3] = indicesvec[i];
+		if ((i % 3) == 2)
+		{
+			pMesh->vtTriangles.push_back(tTri);
+		}
 	}
-	CreateIndexBuffer(_indices, indicesvec.size(), _indexBuffer);
-	delete[] _indices;
+	CreateIndexBuffer(&indicesvec[0], indicesvec.size(), _indexBuffer);
 }
 void CRenderer::CreateVertexBuffer(void* _VertexArray, unsigned int _sizeOfVertexStruct, unsigned int _numVerts, ID3D11Buffer** _vertexBuffer)
 {
