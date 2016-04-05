@@ -26,6 +26,7 @@ class CCamera;
 class CTextureManager;
 class CLights;
 class CModelManager;
+class CRenderShape;
 struct TRenderToTexture
 {
 	ID3D11Texture2D* pTexture2D = nullptr;
@@ -50,6 +51,9 @@ private:
 
 	//Render to Texture For Refraction
 	TRenderToTexture m_tRTTColorBuffer;
+
+	CRenderShape* m_pColorBuffer = nullptr;
+	CRenderShape* m_pLightMap = nullptr;
 
 	ID3D11SamplerState* m_pd3dSampleState = nullptr;
 
@@ -106,6 +110,9 @@ public:
 	ID3D11DepthStencilView* GetDepthStencilView();
 	ID3D11ShaderResourceView* GetDepthStencilShaderResourceView();
 	TRenderToTexture GetRTTColorBuffer();
+
+	CRenderShape* GetColorBuffer();
+	CRenderShape* GetLightMap();
 
 	D3D11_VIEWPORT GetViewport();
 

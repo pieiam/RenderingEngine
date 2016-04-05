@@ -15,8 +15,7 @@
 
 //  Globals //
 CTime gTime;
-CRenderShape* lightMap = nullptr;
-CRenderShape* colorBuffer = nullptr;
+
 CRenderShape* water = nullptr;
 
 //  Forward Declarations //
@@ -68,14 +67,6 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			DispatchMessage(&msg);
 		}
 	}
-	//  Take Care of any Global Pointers //
-	delete lightMap;
-	delete colorBuffer;
-	lightMap = nullptr;
-	colorBuffer = nullptr;
-	//  Clear Post Process Set due to manual deletion of pointers //
-	// TODO: Cleanup allocations so this function call isn't needed
-	CRenderer::GetInstance().ClearPostProcessSet();
 	//  Shutdown Renderer Singleton //
 	CRenderer::GetInstance().Shutdown();
 	return 0;
@@ -114,12 +105,9 @@ void Initialize()
 	bottle->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/Bottle.dds"));
 	bottle->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/Bump.dds"));
 	bottle->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/Bump.dds"));
-	lightMap = new CRenderShape(ERenderShape::eFullScreenQuad);
-	lightMap->SetActive(false);
-	rend.AddRenderable(eContextLightMap,lightMap);
-	colorBuffer = new CRenderShape(ERenderShape::eFullScreenQuad);
-	rend.AddRenderable(eContextColorBuffer, colorBuffer);
-	rend.AddRenderable(eContextWater, colorBuffer);
+	
+	CRenderShape* waterPostProcess = new CRenderShape(ERenderShape::eFullScreenQuad);
+	rend.AddRenderable(eContextWater, waterPostProcess);
 
 	CRenderMeshOBJ* WaterVolume = new CRenderMeshOBJ("../RenderingEngine/Assets/WaterVolume.obj", false);
 	rend.AddRenderable(eContextWaterVolume, WaterVolume);
@@ -146,7 +134,7 @@ void Input(void)
 	if (GetAsyncKeyState(VK_TAB) & 1)
 	{
 		//Toggle LightMap
-		lightMap->SetActive(!lightMap->GetActive());
+		CRenderer::GetInstance().GetLightMap()->SetActive(!CRenderer::GetInstance().GetLightMap()->GetActive());
 	}
 }
 //  Simple WndProc for handling windows messages //

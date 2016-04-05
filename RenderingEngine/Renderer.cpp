@@ -1,5 +1,6 @@
 #include "Renderer.h"
 #include "RenderingStates.h"
+#include "RenderShape.h"
 #include "RenderSet.h"
 #include "VertexTypes.h"
 #include <unordered_map>
@@ -225,7 +226,7 @@ bool CRenderer::Initialize(HWND hWnd, UINT width, UINT height, float fZNear, flo
 #if _DEBUG
 		D3D11_CREATE_DEVICE_DEBUG,
 #else
-		D3D11_CREATE_DEVICE_SINGLETHREADED,
+		0,
 #endif
 		d3dlevels,
 		3,
@@ -357,6 +358,15 @@ bool CRenderer::Initialize(HWND hWnd, UINT width, UINT height, float fZNear, flo
 	hr = m_pd3dDevice->CreateShaderResourceView(m_tRTTColorBuffer.pTexture2D, &d3dRTTSRVDesc, &m_tRTTColorBuffer.pSRV);
 	HRRetFalse(hr);
 
+	//Add Color Buffer
+	m_pColorBuffer = new CRenderShape(ERenderShape::eFullScreenQuad);
+	AddRenderable(eContextColorBuffer, m_pColorBuffer);
+
+	//Add Lightmap Buffer
+	m_pLightMap = new CRenderShape(ERenderShape::eFullScreenQuad);
+	m_pLightMap->SetActive(false);
+	AddRenderable(eContextLightMap, m_pLightMap);
+
 	return true;
 }
 void  CRenderer::Shutdown()
@@ -449,6 +459,14 @@ ID3D11ShaderResourceView*  CRenderer::GetDepthStencilShaderResourceView()
 TRenderToTexture CRenderer::GetRTTColorBuffer()
 {
 	return m_tRTTColorBuffer;
+}
+CRenderShape* CRenderer::GetColorBuffer()
+{
+	return m_pColorBuffer;
+}
+CRenderShape* CRenderer::GetLightMap()
+{
+	return m_pLightMap;
 }
 D3D11_VIEWPORT  CRenderer::GetViewport()
 {
