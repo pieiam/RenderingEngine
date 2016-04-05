@@ -1,3 +1,7 @@
+Changelog v1.01 March 27, 2016
+-Added Mesh struct to store load data of models for use in collision, etc.
+
+
 README v1.0 Jan 24, 2016
 This is a personal project that I worked on during my time at Full Sail University. 
 This was a project to explore current rendering techniques and learn more about GPU processing.
