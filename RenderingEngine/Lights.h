@@ -3,7 +3,7 @@
 using DirectX::XMFLOAT4;
 class CRenderable;
 #include <vector>
-#define MAX_POINT_LIGHTS 1024
+#define MAX_POINT_LIGHTS 512
 struct TPointLight
 {
 	// Position and Radius
@@ -21,10 +21,12 @@ private:
 	std::vector<TPointLight> m_vtPointLights;
 	std::vector<TPointLightStream> m_vtPointLightStream;
 	std::vector<CRenderable*> m_vpLightRenderables;
+
+	void RandomizeLights(XMFLOAT4 f4PosRadMin, XMFLOAT4 f4PosRadMax, XMFLOAT4 f4ColorMin, XMFLOAT4 f4ColorMax);
+	void LoadLightsFromFile(const char* _filename);
 public:
 	CLights();
 	~CLights();
 	void Initialize();
 	void UpdateLights();
-	void RandomizeLights(XMFLOAT4 f4PosRadMin, XMFLOAT4 f4PosRadMax, XMFLOAT4 f4ColorMin, XMFLOAT4 f4ColorMax);
 };

@@ -24,7 +24,8 @@ public:
 	// Modify TObject Matrix
 	void UniformScale(float _fScale);
 	void SetPosition(float _fX, float _fY, float _fZ);
-
+	void SetPosition(DirectX::XMFLOAT4 _Pos);
+	void SetPosition(DirectX::XMFLOAT3 _Pos);
 	// In Degrees
 	void RotateGlobalX(float _fRotation);
 	void RotateGlobalY(float _fRotation);

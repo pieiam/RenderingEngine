@@ -75,14 +75,14 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 void Initialize()
 {
 	CRenderer& rend = CRenderer::GetInstance();
-	CRenderMeshOBJ* dragonite = new CRenderMeshOBJ("../RenderingEngine/Assets/Dragonite.obj");
-	dragonite->SetPosition(0, 0.0f, -300.0f);
-	dragonite->RotateGlobalX(-90.0f);
-	dragonite->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/Dragonite1.dds"));
-	dragonite->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/Dragonite1.dds"));
-	dragonite->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/Dragonite3.dds"));
-	dragonite->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/Dragonite4.dds"));
-	rend.AddRenderable(eContext3D, dragonite);
+	//CRenderMeshOBJ* dragonite = new CRenderMeshOBJ("../RenderingEngine/Assets/Dragonite.obj");
+	//dragonite->SetPosition(0, 0.0f, -300.0f);
+	//dragonite->RotateGlobalX(-90.0f);
+	//dragonite->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/Dragonite1.dds"));
+	//dragonite->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/Dragonite1.dds"));
+	//dragonite->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/Dragonite3.dds"));
+	//dragonite->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/Dragonite4.dds"));
+	//rend.AddRenderable(eContext3D, dragonite);
 	
 	CRenderMeshOBJ* table = new CRenderMeshOBJ("../RenderingEngine/Assets/Table.obj");
 	rend.AddRenderable(eContext3D, table);
@@ -97,23 +97,23 @@ void Initialize()
 	cube->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/WoodDiffuse.dds"));
 	cube->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/WoodNormal.dds"));
 
-	CRenderMeshOBJ* bottle = new CRenderMeshOBJ("../RenderingEngine/Assets/Bottle.obj",true);
-	rend.AddRenderable(eContext3DTransparent, bottle);
-	bottle->SetPosition(0, 165.0f, 0);
-	bottle->UniformScale(100.0f);
-	bottle->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/Bottle.dds"));
-	bottle->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/Bottle.dds"));
-	bottle->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/Bump.dds"));
-	bottle->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/Bump.dds"));
-	
-	CRenderShape* waterPostProcess = new CRenderShape(ERenderShape::eFullScreenQuad);
-	rend.AddRenderable(eContextWater, waterPostProcess);
+	//CRenderMeshOBJ* bottle = new CRenderMeshOBJ("../RenderingEngine/Assets/Bottle.obj",true);
+	//rend.AddRenderable(eContext3DTransparent, bottle);
+	//bottle->SetPosition(0, 165.0f, 0);
+	//bottle->UniformScale(100.0f);
+	//bottle->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/Bottle.dds"));
+	//bottle->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/Bottle.dds"));
+	//bottle->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/Bump.dds"));
+	//bottle->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/Bump.dds"));
+	//
+	//CRenderShape* waterPostProcess = new CRenderShape(ERenderShape::eFullScreenQuad);
+	//rend.AddRenderable(eContextWater, waterPostProcess);
 
-	CRenderMeshOBJ* WaterVolume = new CRenderMeshOBJ("../RenderingEngine/Assets/WaterVolume.obj", false);
-	rend.AddRenderable(eContextWaterVolume, WaterVolume);
-	WaterVolume->SetPosition(0, 165.0f, 0);
-	WaterVolume->UniformScale(100.0f);
-	WaterVolume->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/WoodDiffuse.dds"));
+	//CRenderMeshOBJ* WaterVolume = new CRenderMeshOBJ("../RenderingEngine/Assets/WaterVolume.obj", false);
+	//rend.AddRenderable(eContextWaterVolume, WaterVolume);
+	//WaterVolume->SetPosition(0, 165.0f, 0);
+	//WaterVolume->UniformScale(100.0f);
+	//WaterVolume->GetShaderResourceViews().push_back(rend.GetTextureManager()->GetSRV(L"../RenderingEngine/Assets/WoodDiffuse.dds"));
 
 }
 //  The "Game Loop" function that will be called every frame //

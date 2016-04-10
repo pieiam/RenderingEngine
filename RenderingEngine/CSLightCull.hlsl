@@ -73,27 +73,32 @@ void main(uint3 DTid : SV_DispatchThreadID, uint3 GroupID : SV_GroupID, uint3 Th
 #if _RELEASE
 	[unroll]
 #endif
-	for (unsigned int unLight = 0; unLight < MAX_LIGHTS; unLight += THREADS_PER_TILE)
+	for (unsigned int unLight = 0; unLight < MAX_POINT_LIGHTS; unLight += THREADS_PER_TILE)
 	{
 		uint index = unLight + (ThreadID.x + ThreadID.y * TILE_SIZE);
 		//Get Light in View Space
 		float4 curLight = PointLightPosRadius[index];
 		float4 LightCenter = float4(curLight.xyz, 1);
-			float Radius = curLight.w;
+		float Radius = curLight.w;
 
-		LightCenter = mul(LightCenter, f44ViewMatrix);
-		LightCenter /= LightCenter.w;
-		//Check Depth
-		if (LightCenter.z - zMax < Radius && -LightCenter.z + zMin < Radius)
+		//Check if Radius is above threshold value
+		if (Radius > RADIUS_THRESHOLD)
 		{
-			//Check Light Against Frustum
-			if (SphereToFrustum(tFrustumPlanes, LightCenter.xyz, Radius))
+
+			LightCenter = mul(LightCenter, f44ViewMatrix);
+			LightCenter /= LightCenter.w;
+			//Check Depth
+			if (LightCenter.z - zMax < Radius && -LightCenter.z + zMin < Radius)
 			{
-				//Pushback index
-				uint unBufferIndex = 0;
-				InterlockedAdd(gsNumLights, 1, unBufferIndex);
-				if (unBufferIndex < MAX_LIGHT_PER_TILE)
-					gsLightIndex[unBufferIndex] = index;
+				//Check Light Against Frustum
+				if (SphereToFrustum(tFrustumPlanes, LightCenter.xyz, Radius))
+				{
+					//Pushback index
+					uint unBufferIndex = 0;
+					InterlockedAdd(gsNumLights, 1, unBufferIndex);
+					if (unBufferIndex < MAX_LIGHT_PER_TILE)
+						gsLightIndex[unBufferIndex] = index;
+				}
 			}
 		}
 

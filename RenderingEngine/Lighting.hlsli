@@ -2,12 +2,13 @@
 #define LIGHTING_H_
 #include "ShaderStructs.hlsli"
 #define AMBIENTRATIO .2f
-#define MAX_LIGHTS 1024
+#define MAX_POINT_LIGHTS 512
 #define MAX_LIGHT_PER_TILE 512
-#define SENTINEL_VALUE (MAX_LIGHTS+1)
+#define SENTINEL_VALUE (MAX_POINT_LIGHTS+1)
 #define WINDOW_WIDTH 1024
 #define WINDOW_HEIGHT 768
 #define TILE_SIZE 16
+#define RADIUS_THRESHOLD .1f
 
 // 1 if using Phong, 0 if using Blinn-Phong
 #define PHONG 0
@@ -21,11 +22,11 @@ struct POINTLIGHT
 
 cbuffer CPointLights : register (b2)
 {
-	POINTLIGHT PointLight[MAX_LIGHTS];
+	POINTLIGHT PointLight[MAX_POINT_LIGHTS];
 };
 cbuffer CPointLightStream : register(b3)
 {
-	float4 PointLightPosRadius[MAX_LIGHTS];
+	float4 PointLightPosRadius[MAX_POINT_LIGHTS];
 }
 float4 ComputePointLight(POINTLIGHT Light, float3 SurNormal, float3 SurPos,float4 SurColor )
 {

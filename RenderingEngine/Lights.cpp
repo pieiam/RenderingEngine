@@ -2,6 +2,8 @@
 #include "Renderer.h"
 #include "ConstantBuffers.h"
 #include "RenderMeshOBJ.h"
+#include <fstream>
+
 // Value between 2 input vals based on ratio
 #define IN_BETWEEN_VAL(minV,maxV,r) {(((maxV) - (minV))*(r) + (minV))}
 CLights::CLights()
@@ -28,7 +30,8 @@ void CLights::Initialize()
 	XMFLOAT4 f4MaxPosRad = XMFLOAT4(900.0f, 1000.0f, 900.0f, 500.0f);
 	XMFLOAT4 f4MinColor = XMFLOAT4(0, 0, 0, 1);
 	XMFLOAT4 f4MaxColor = XMFLOAT4(1, 1, 1, 1);
-	RandomizeLights(f4MinPosRad, f4MaxPosRad, f4MinColor, f4MaxColor);
+	//RandomizeLights(f4MinPosRad, f4MaxPosRad, f4MinColor, f4MaxColor);
+	LoadLightsFromFile("LightScript.txt");
 }
 void CLights::UpdateLights()
 {
@@ -98,5 +101,66 @@ void CLights::RandomizeLights(XMFLOAT4 f4PosRadMin, XMFLOAT4 f4PosRadMax, XMFLOA
 	CRenderer& rend = CRenderer::GetInstance();
 	rend.GetConstantBuffers()->MapToConstantBuffer(&m_vtPointLights[0], sizeof(TPointLight)*m_vtPointLights.size(), ePointLightBuffer);
 	rend.GetConstantBuffers()->MapToConstantBuffer(&m_vtPointLightStream[0], sizeof(TPointLightStream)*m_vtPointLightStream.size(), ePointLightStreamBuffer);
+
+}
+
+//TODO this entire function
+void CLights::LoadLightsFromFile(const char* _filename)
+{
+	//TODO 
+	std::ifstream fin;
+	fin.open(_filename);
+	if (fin.is_open())
+	{
+		std::string line;
+		unsigned int pointIndex = 0;
+		while (std::getline(fin, line))
+		{
+			if (line.substr(0,5) == "Point")
+			{
+				// Read and Set Values on Point Light
+				float f;
+				fin >> f;
+				m_vtPointLights[pointIndex].f4PosRadius.x = m_vtPointLightStream[pointIndex].f4PosRadius.x = f;
+				fin >> f;
+				m_vtPointLights[pointIndex].f4PosRadius.y = m_vtPointLightStream[pointIndex].f4PosRadius.y = f;
+				fin >> f;
+				m_vtPointLights[pointIndex].f4PosRadius.z = m_vtPointLightStream[pointIndex].f4PosRadius.z = f;
+				fin >> f;
+				m_vtPointLights[pointIndex].f4PosRadius.w = m_vtPointLightStream[pointIndex].f4PosRadius.w = f;
+				fin >> f;
+				m_vtPointLights[pointIndex].f4Color.x = f;
+				fin >> f;
+				m_vtPointLights[pointIndex].f4Color.y = f;
+				fin >> f;
+				m_vtPointLights[pointIndex].f4Color.z = f;
+				fin >> f;
+				m_vtPointLights[pointIndex].f4Color.w = f;
+
+				// Update debug object
+				CRenderMeshOBJ* pLightRender = static_cast<CRenderMeshOBJ*>(m_vpLightRenderables[pointIndex]);
+				pLightRender->SetPosition(m_vtPointLights[pointIndex].f4PosRadius);
+				pLightRender->UniformScale(m_vtPointLights[pointIndex].f4PosRadius.w);
+
+				// Increment Point Light Counter
+				++pointIndex;
+			}
+		}
+
+		//Initialize the rest to zero
+		for (unsigned int i = pointIndex; i < MAX_POINT_LIGHTS; ++i)
+		{
+			m_vtPointLights[i].f4PosRadius = XMFLOAT4(100, 100, 0, 0.0f);
+			m_vtPointLights[i].f4Color = XMFLOAT4(1, 0, 0, 1);
+			m_vtPointLightStream[i].f4PosRadius = XMFLOAT4(100, 100, 0, 0.0f);
+		}
+
+		//Map Constant Buffers
+		CRenderer& rend = CRenderer::GetInstance();
+		rend.GetConstantBuffers()->MapToConstantBuffer(&m_vtPointLights[0], sizeof(TPointLight)*m_vtPointLights.size(), ePointLightBuffer);
+		rend.GetConstantBuffers()->MapToConstantBuffer(&m_vtPointLightStream[0], sizeof(TPointLightStream)*m_vtPointLightStream.size(), ePointLightStreamBuffer);
+
+		fin.close();
+	}
 
 }

@@ -159,6 +159,14 @@ void CRenderMesh3D::SetPosition(float _fX, float _fY, float _fZ)
 	m_tObject.f44WorldMatrix._42 = _fY;
 	m_tObject.f44WorldMatrix._43 = _fZ;
 }
+void CRenderMesh3D::SetPosition(XMFLOAT4 _Pos)
+{
+	this->SetPosition(_Pos.x, _Pos.y, _Pos.z);
+}
+void CRenderMesh3D::SetPosition(XMFLOAT3 _Pos)
+{
+	this->SetPosition(_Pos.x, _Pos.y, _Pos.z);
+}
 void CRenderMesh3D::RotateGlobalX(float _fRotation)
 {
 	XMFLOAT3 Pos = XMFLOAT3(m_tObject.f44WorldMatrix._41, m_tObject.f44WorldMatrix._42, m_tObject.f44WorldMatrix._43);
